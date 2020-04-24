@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   return (
     <div>
-      <Link to="/pizza">Pizza?</Link>
+      <Link data-cy="pizza" to="/pizza">Pizza?</Link>
     </div>
   );
 }
