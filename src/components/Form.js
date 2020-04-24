@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as yup from "yup";
 
@@ -27,6 +27,8 @@ const Form = (props) => {
    const [ errors, setErrors ] = useState({
      name: ''
    });
+
+   const [ buttonOff, setButtonOff ] = useState(true);
 
    
 
@@ -94,6 +96,15 @@ const Form = (props) => {
          });
        })
    }
+
+
+  useEffect(() => {
+    schema
+      .isValid(form)
+      .then((valid) => {
+        setButtonOff(!valid);
+      });
+  }, [form])
 
   return (
     <form onSubmit={submitForm}>
@@ -183,7 +194,7 @@ const Form = (props) => {
           onChange={handleChange}
         />
       </label>
-      <button data-cy="submit">Order Pizza!</button>
+      <button disabled={buttonOff} data-cy="submit">Order Pizza!</button>
 
       {order && <pre data-cy="order" >{JSON.stringify(order, null, 2)}</pre>}
     </form>
